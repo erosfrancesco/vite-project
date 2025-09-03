@@ -3,42 +3,39 @@
     "id": 1,
     "name": "John",
     "surname": "Doe",
-    "date": 1754006400000,
     "generalNotes": "Prefers morning appointments.",
     "treatments": [
-      { "type": "Shiatsu" },
-      { "type": "Shiatsu" },
-      { "type": "Acupressure" },
-      { "type": "Shiatsu" },
-      { "type": "Shiatsu" }
+      { "notes": "Shiatsu", "date": 1754006400000 },
+      { "notes": "Shiatsu", "date": 1753920000000 },
+      { "notes": "Acupressure", "date": 1753833600000 },
+      { "notes": "Shiatsu", "date": 1753747200000 },
+      { "notes": "Shiatsu", "date": 1753660800000 }
     ]
   },
   {
     "id": 2,
     "name": "Jane",
     "surname": "Smith",
-    "date": 1752537600000,
     "generalNotes": "Has allergies to oils.",
     "treatments": [
-      { "type": "Shiatsu" },
-      { "type": "Shiatsu" },
-      { "type": "Acupressure" }
+      { "notes": "Shiatsu", "date": 1752537600000 },
+      { "notes": "Shiatsu", "date": 1752451200000 },
+      { "notes": "Acupressure", "date": 1752364800000 }
     ]
   },
   {
     "id": 3,
     "name": "Alice",
     "surname": "Brown",
-    "date": 1750377600000,
     "generalNotes": "Recovering from knee injury.",
     "treatments": [
-      { "type": "Shiatsu" },
-      { "type": "Shiatsu" },
-      { "type": "Shiatsu" },
-      { "type": "Acupressure" },
-      { "type": "Shiatsu" },
-      { "type": "Shiatsu" },
-      { "type": "Shiatsu" }
+      { "notes": "Shiatsu", "date": 1750377600000 },
+      { "notes": "Shiatsu", "date": 1750291200000 },
+      { "notes": "Shiatsu", "date": 1750204800000 },
+      { "notes": "Acupressure", "date": 1750118400000 },
+      { "notes": "Shiatsu", "date": 1750032000000 },
+      { "notes": "Shiatsu", "date": 1749945600000 },
+      { "notes": "Shiatsu", "date": 1749859200000 }
     ]
   }
 ]

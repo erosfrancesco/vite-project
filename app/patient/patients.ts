@@ -1,26 +1,44 @@
 import { useState } from "react";
 import patients from "./patients.json";
 
-export type OrderKey = "name" | "surname" | "date" | "treatments";
+export type Patient = {
+  id: number;
+  name: string;
+  surname: string;
+  generalNotes: string;
+  treatments: {
+    notes: string;
+    date: number;
+  }[];
+
+  lastTreatmentDate: number;
+};
+
+export type OrderKey = keyof Patient;
 export type OrderDir = "asc" | "desc";
 
 export const usePatients = () => {
   const [filter, setFilter] = useState("");
-  const [orderKey, setOrderKey] = useState<OrderKey>("date");
+  const [orderKey, setOrderKey] = useState<OrderKey>("lastTreatmentDate");
   const [orderDir, setOrderDir] = useState<OrderDir>("desc");
 
   const filteredPatients = [...patients]
+    .map((patient) => {
+      const lastTreatment = patient.treatments[patient.treatments.length - 1];
+      const lastTreatmentDate = lastTreatment?.date;
+      return { ...patient, lastTreatmentDate };
+    })
     .filter((patient) =>
-      `${patient.name} ${patient.surname}`
+      `${patient.name} ${patient.surname} ${patient.generalNotes}`
         .toLowerCase()
         .includes(filter.toLowerCase())
     )
     .sort((a, b) => {
       let aVal = a[orderKey];
       let bVal = b[orderKey];
-      if (orderKey === "date") {
-        aVal = new Date(a.date).getTime();
-        bVal = new Date(b.date).getTime();
+      if (orderKey === "lastTreatmentDate") {
+        aVal = new Date(a.lastTreatmentDate).getTime();
+        bVal = new Date(b.lastTreatmentDate).getTime();
       }
       if (orderKey === "treatments") {
         aVal = a.treatments.length;
@@ -37,6 +55,7 @@ export const usePatients = () => {
       return 0;
     });
 
+  //
   function handleOrder(key: OrderKey) {
     if (orderKey === key) {
       setOrderDir(orderDir === "asc" ? "desc" : "asc");
@@ -46,14 +65,22 @@ export const usePatients = () => {
     }
   }
 
+  function renderOrderIconValue(key: OrderKey) {
+    return orderKey === key ? (orderDir === "desc" ? "↓" : "↑") : "";
+  }
+  //
+
+  //
+  function getPatientById(id?: string) {
+    return patients.find((p) => String(p.id) === id);
+  }
+
   return {
     filter,
     setFilter,
-    orderKey,
-    setOrderKey,
-    orderDir,
-    setOrderDir,
     patients: filteredPatients,
     handleOrder,
+    renderOrderIconValue,
+    getPatientById,
   };
 };
