@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "name": "John",
+    "surname": "Doe",
+    "date": 1754006400000,
+    "generalNotes": "Prefers morning appointments.",
+    "treatments": [
+      { "type": "Shiatsu" },
+      { "type": "Shiatsu" },
+      { "type": "Acupressure" },
+      { "type": "Shiatsu" },
+      { "type": "Shiatsu" }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Jane",
+    "surname": "Smith",
+    "date": 1752537600000,
+    "generalNotes": "Has allergies to oils.",
+    "treatments": [
+      { "type": "Shiatsu" },
+      { "type": "Shiatsu" },
+      { "type": "Acupressure" }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Alice",
+    "surname": "Brown",
+    "date": 1750377600000,
+    "generalNotes": "Recovering from knee injury.",
+    "treatments": [
+      { "type": "Shiatsu" },
+      { "type": "Shiatsu" },
+      { "type": "Shiatsu" },
+      { "type": "Acupressure" },
+      { "type": "Shiatsu" },
+      { "type": "Shiatsu" },
+      { "type": "Shiatsu" }
+    ]
+  }
+]

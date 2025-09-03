@@ -1,8 +1,31 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-sans:
+    "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+/* Shiatsu Palette */
+:root {
+  --shiatsu-red: #a94442;
+  --shiatsu-brown: #8d6748;
+  --shiatsu-beige: #f5e9da;
+  --shiatsu-green: #7a9e7e;
+  --shiatsu-gray: #b0b7b1;
+  --shiatsu-white: #ffffff;
+}
+
+/* Dark mode Shiatsu Palette */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --shiatsu-red: #e57373;
+    --shiatsu-brown: #a98467;
+    --shiatsu-beige: #2d2424;
+    --shiatsu-green: #a5d6a7;
+    --shiatsu-gray: #757575;
+    --shiatsu-white: #181818;
+  }
 }
 
 html,
@@ -12,4 +35,96 @@ body {
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;
   }
+}
+
+/* Text customization */
+/*
+html,
+body {
+}
+
+table,
+th,
+td,
+button,
+input,
+div,
+main,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+}
+/**/
+
+/* Button customization */
+button {
+  background: var(--shiatsu-red);
+  color: var(--shiatsu-white);
+  border: 1px solid var(--shiatsu-brown);
+  border-radius: 0.375rem;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+button:hover {
+  background: var(--shiatsu-green);
+  color: var(--shiatsu-beige);
+}
+
+/* Table customization */
+table {
+  background: var(--shiatsu-beige);
+  border: 1px solid var(--shiatsu-gray);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+th {
+  background: var(--shiatsu-brown);
+  color: var(--shiatsu-white);
+  font-weight: 600;
+}
+td {
+  background: var(--shiatsu-white);
+  color: var(--shiatsu-red);
+  border: 1px solid var(--shiatsu-gray);
+  border-bottom: 1px solid var(--shiatsu-gray);
+}
+tr:last-child td {
+  border-bottom: none;
+}
+
+tr:hover td {
+  background: var(--shiatsu-brown);
+  color: var(--shiatsu-white);
+}
+
+/** Div customization */
+div {
+  background: var(--shiatsu-beige);
+}
+
+main {
+  background: var(--shiatsu-beige);
+}
+
+/* Card customization */
+.card {
+  background: var(--shiatsu-beige);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin: 1rem;
+  box-shadow: 0 2px 4px var(--shiatsu-gray);
+}
+
+/* Input customization */
+input {
+  background: transparent;
+  border-radius: 0.375rem;
+  padding: 0.5rem 0.75rem;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+  outline: none;
 }
