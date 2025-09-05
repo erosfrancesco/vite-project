@@ -3,8 +3,8 @@ import { usePatients } from "./patients";
 
 export default function PatientDetail() {
   const { patientId } = useParams();
-  const { getPatientById } = usePatients();
-  const patient = getPatientById(patientId);
+  const { getPatientTreatments } = usePatients();
+  const patient = getPatientTreatments(patientId);
 
   if (!patient) {
     return (
@@ -22,9 +22,6 @@ export default function PatientDetail() {
         <h2 className="text-2xl font-bold mb-2 text-[color:var(--shiatsu-red)]">
           {patient.name} {patient.surname}
         </h2>
-        <div className="mb-2 text-[color:var(--shiatsu-brown)]">
-          {patient.generalNotes}
-        </div>
 
         <table className="min-w-[300px] w-full border border-[color:var(--shiatsu-gray)] rounded bg-[color:var(--shiatsu-white)]">
           <thead>

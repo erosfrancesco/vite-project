@@ -100,11 +100,6 @@ tr:hover td {
   color: var(--shiatsu-white);
 }
 
-/** Div customization */
-div {
-  background: var(--shiatsu-beige);
-}
-
 main {
   background: var(--shiatsu-beige);
 }

@@ -71,8 +71,8 @@ export const usePatients = () => {
   //
 
   //
-  function getPatientById(id?: string) {
-    return patients.find((p) => String(p.id) === id);
+  function getPatientTreatments(patientId?: string) {
+    return patients.find((p) => String(p.id) === patientId);
   }
 
   return {
@@ -81,6 +81,6 @@ export const usePatients = () => {
     patients: filteredPatients,
     handleOrder,
     renderOrderIconValue,
-    getPatientById,
+    getPatientTreatments,
   };
 };
