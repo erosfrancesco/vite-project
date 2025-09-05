@@ -4,11 +4,11 @@ type MagnifyingGlassIconProps = {
 
 const MagnifyingGlassIcon = ({ className }: MagnifyingGlassIconProps) => (
   <span
-    className={`pointer-events-none text-[color:var(--shiatsu-gray)] ${className}`}
+    className={`pointer-events-none text-[color:var(--shiatsu-secondary-bg)] ${className}`}
     style={{
       left: 10,
       pointerEvents: "none",
-      color: "var(--shiatsu-gray)",
+      color: "var(--shiatsu-secondary-bg)",
       fontSize: "1.1em",
     }}
   >

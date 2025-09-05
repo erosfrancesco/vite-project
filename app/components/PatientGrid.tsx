@@ -7,6 +7,7 @@ function PatientSummaryCard({ patient }: { patient: Patient }) {
 
   function goToPatientDetails(e: React.MouseEvent<HTMLDivElement>) {
     e.stopPropagation();
+    console.log("going to patient", patient.id);
     navigate(`/patients/${patient.id}`);
   }
 
@@ -23,10 +24,10 @@ function PatientSummaryCard({ patient }: { patient: Patient }) {
         </h2>
         <button
           onClick={editPatient}
-          className="p-2 rounded cursor-pointer hover:bg-[color:var(--shiatsu-beige)]"
+          className="p-2 rounded cursor-pointer hover:bg-[color:var(--shiatsu-primary-text)]"
           title="Edit patient"
         >
-          <PencilIcon className="text-[color:var(--shiatsu-gray)]" />
+          <PencilIcon className="text-[color:var(--shiatsu-secondary-bg)]" />
         </button>
       </div>
 
@@ -40,13 +41,13 @@ function PatientSummaryCard({ patient }: { patient: Patient }) {
   );
 }
 
-function PatientSummaryCardWrapper(args: any) {
+function PatientSummaryCardStyling({ ...args }: any) {
   return (
     <div
       className={[
         "shadow hover:shadow-lg rounded transition-shadow",
         "border p-4 rounded cursor-pointer",
-        "hover:bg-[color:var(--shiatsu-green)] hover:text-[var(--shiatsu-white)]",
+        "hover:bg-[color:var(--shiatsu-secondary)] hover:text-[var(--shiatsu-text)]",
       ].join(" ")}
     >
       <div />
@@ -56,16 +57,18 @@ function PatientSummaryCardWrapper(args: any) {
 }
 
 interface PatientsListProps {
-  className?: string;
+  patients?: Patient[];
 }
 
-export default function PatientsList({ className }: PatientsListProps) {
-  const { renderOrderIconValue, handleOrder, patients } = usePatients();
+export default function PatientsGrid({ patients }: PatientsListProps) {
+  if (!patients || patients.length === 0) {
+    return <p>No patients found.</p>;
+  }
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {patients.map((patient) => (
-        <PatientSummaryCardWrapper key={patient.id} patient={patient} />
+        <PatientSummaryCardStyling key={patient.id} patient={patient} />
       ))}
     </div>
   );

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import patients from "./patients.json";
 
 export type Patient = {
@@ -22,40 +22,45 @@ export const usePatients = () => {
   const [orderKey, setOrderKey] = useState<OrderKey>("lastTreatmentDate");
   const [orderDir, setOrderDir] = useState<OrderDir>("desc");
 
-  const filteredPatients = [...patients]
-    .map((patient) => {
-      const lastTreatment = patient.treatments[patient.treatments.length - 1];
-      const lastTreatmentDate = lastTreatment?.date;
-      return { ...patient, lastTreatmentDate };
-    })
-    .filter((patient) =>
-      `${patient.name} ${patient.surname} ${patient.generalNotes}`
-        .toLowerCase()
-        .includes(filter.toLowerCase())
-    )
-    .sort((a, b) => {
-      let aVal = a[orderKey];
-      let bVal = b[orderKey];
-      if (orderKey === "lastTreatmentDate") {
-        aVal = new Date(a.lastTreatmentDate).getTime();
-        bVal = new Date(b.lastTreatmentDate).getTime();
-      }
-      if (orderKey === "treatments") {
-        aVal = a.treatments.length;
-        bVal = b.treatments.length;
-      }
-      if (typeof aVal === "string" && typeof bVal === "string") {
-        if (orderDir === "asc") return aVal.localeCompare(bVal);
-        else return bVal.localeCompare(aVal);
-      }
-      if (typeof aVal === "number" && typeof bVal === "number") {
-        if (orderDir === "asc") return aVal - bVal;
-        else return bVal - aVal;
-      }
-      return 0;
-    });
+  const filteredPatients = useMemo(() => {
+    return [...patients]
+      .map((patient) => {
+        const lastTreatment = patient.treatments[patient.treatments.length - 1];
+        const lastTreatmentDate = lastTreatment?.date;
+        return { ...patient, lastTreatmentDate };
+      })
+      .filter((patient) =>
+        `${patient.name} ${patient.surname} ${patient.generalNotes}`
+          .toLowerCase()
+          .includes(filter.toLowerCase())
+      )
+      .sort((a, b) => {
+        let aVal = a[orderKey];
+        let bVal = b[orderKey];
+        if (orderKey === "lastTreatmentDate") {
+          aVal = new Date(a.lastTreatmentDate).getTime();
+          bVal = new Date(b.lastTreatmentDate).getTime();
+        }
+        if (orderKey === "treatments") {
+          aVal = a.treatments.length;
+          bVal = b.treatments.length;
+        }
+        if (typeof aVal === "string" && typeof bVal === "string") {
+          if (orderDir === "asc") return aVal.localeCompare(bVal);
+          else return bVal.localeCompare(aVal);
+        }
+        if (typeof aVal === "number" && typeof bVal === "number") {
+          if (orderDir === "asc") return aVal - bVal;
+          else return bVal - aVal;
+        }
+        return 0;
+      });
+  }, [filter, orderKey, orderDir]);
+
+  console.log(filteredPatients);
 
   //
+  /*
   function handleOrder(key: OrderKey) {
     if (orderKey === key) {
       setOrderDir(orderDir === "asc" ? "desc" : "asc");
@@ -68,6 +73,7 @@ export const usePatients = () => {
   function renderOrderIconValue(key: OrderKey) {
     return orderKey === key ? (orderDir === "desc" ? "↓" : "↑") : "";
   }
+  /** */
   //
 
   //
@@ -79,8 +85,13 @@ export const usePatients = () => {
     filter,
     setFilter,
     patients: filteredPatients,
-    handleOrder,
-    renderOrderIconValue,
+    orderDir,
+    setOrderDir,
+    orderKey,
+    setOrderKey,
+    // handleOrder,
+    // renderOrderIconValue,
+
     getPatientTreatments,
   };
 };

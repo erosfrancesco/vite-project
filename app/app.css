@@ -1,31 +1,10 @@
 @import "tailwindcss";
+@import "./colors.css";
 
 @theme {
   --font-sans:
     "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-}
-
-/* Shiatsu Palette */
-:root {
-  --shiatsu-red: #a94442;
-  --shiatsu-brown: #8d6748;
-  --shiatsu-beige: #f5e9da;
-  --shiatsu-green: #7a9e7e;
-  --shiatsu-gray: #b0b7b1;
-  --shiatsu-white: #ffffff;
-}
-
-/* Dark mode Shiatsu Palette */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --shiatsu-red: #e57373;
-    --shiatsu-brown: #a98467;
-    --shiatsu-beige: #2d2424;
-    --shiatsu-green: #a5d6a7;
-    --shiatsu-gray: #757575;
-    --shiatsu-white: #181818;
-  }
 }
 
 html,
@@ -37,80 +16,58 @@ body {
   }
 }
 
-/* Text customization */
-/*
-html,
-body {
-}
-
-table,
-th,
-td,
-button,
-input,
-div,
-main,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-}
-/**/
-
 /* Button customization */
 button {
-  background: var(--shiatsu-red);
-  color: var(--shiatsu-white);
-  border: 1px solid var(--shiatsu-brown);
+  background: var(--shiatsu-primary);
+  color: var(--shiatsu-primary-text);
+  border: 1px solid var(--shiatsu-primary-bg);
   border-radius: 0.375rem;
   font-weight: 500;
   transition: background 0.2s;
 }
 button:hover {
-  background: var(--shiatsu-green);
-  color: var(--shiatsu-beige);
+  background: var(--shiatsu-primary-selected);
+  color: var(--shiatsu-primary-text);
 }
 
 /* Table customization */
 table {
-  background: var(--shiatsu-beige);
-  border: 1px solid var(--shiatsu-gray);
+  background: var(--shiatsu-primary-text);
+  border: 1px solid var(--shiatsu-secondary-bg);
   border-radius: 0.5rem;
   overflow: hidden;
 }
 th {
-  background: var(--shiatsu-brown);
-  color: var(--shiatsu-white);
+  background: var(--shiatsu-primary-bg);
+  color: var(--shiatsu-text);
   font-weight: 600;
 }
 td {
-  background: var(--shiatsu-white);
-  color: var(--shiatsu-red);
-  border: 1px solid var(--shiatsu-gray);
-  border-bottom: 1px solid var(--shiatsu-gray);
+  background: var(--shiatsu-text);
+  color: var(--shiatsu-primary);
+  border: 1px solid var(--shiatsu-secondary-bg);
+  border-bottom: 1px solid var(--shiatsu-secondary-bg);
 }
 tr:last-child td {
   border-bottom: none;
 }
 
 tr:hover td {
-  background: var(--shiatsu-brown);
-  color: var(--shiatsu-white);
+  background: var(--shiatsu-primary-bg);
+  color: var(--shiatsu-text);
 }
 
 main {
-  background: var(--shiatsu-beige);
+  background: var(--shiatsu-primary-text);
 }
 
 /* Card customization */
 .card {
-  background: var(--shiatsu-beige);
+  background: var(--shiatsu-primary-text);
   border-radius: 0.5rem;
   padding: 1rem;
   margin: 1rem;
-  box-shadow: 0 2px 4px var(--shiatsu-gray);
+  box-shadow: 0 2px 4px var(--shiatsu-secondary-bg);
 }
 
 /* Input customization */
@@ -122,4 +79,63 @@ input {
     border-color 0.2s,
     box-shadow 0.2s;
   outline: none;
+}
+
+/* Select dropdown customization */
+select {
+  background: transparent;
+  border-radius: 0.375rem;
+  padding: 0.5rem 2rem 0.5rem 0.75rem;
+  font-size: 0.95em;
+
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+  outline: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+select:focus {
+  border: 1px solid var(--shiatsu-secondary-bg);
+  border-color: var(--shiatsu-primary);
+  box-shadow: 0 0 0 2px var(--shiatsu-primary-bg);
+  outline: none;
+}
+
+option {
+  background: var(--shiatsu-primary-text);
+  color: var(--shiatsu-primary);
+  font-size: 0.95em;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+/* Custom dropdown arrow for select */
+select::-ms-expand {
+  display: none;
+}
+select::after {
+  content: "";
+  display: block;
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  width: 0.8em;
+  height: 0.5em;
+  pointer-events: none;
+  border-left: 0.2em solid transparent;
+  border-right: 0.2em solid transparent;
+  border-top: 0.3em solid var(--shiatsu-primary);
+  transform: translateY(-50%);
+}
+
+/* Dark mode for select and option */
+@media (prefers-color-scheme: dark) {
+  select {
+  }
+  option {
+    background: var(--shiatsu-primary-bg);
+    color: var(--shiatsu-text);
+  }
 }

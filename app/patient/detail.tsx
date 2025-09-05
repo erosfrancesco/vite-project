@@ -17,19 +17,19 @@ export default function PatientDetail() {
   }
 
   return (
-    <main className="flex items-center justify-center p-4 bg-[color:var(--shiatsu-beige)]">
+    <main className="flex items-center justify-center p-4 bg-[color:var(--shiatsu-primary-text)]">
       <div className="flex-1 flex flex-col items-start gap-8 min-h-0">
-        <h2 className="text-2xl font-bold mb-2 text-[color:var(--shiatsu-red)]">
+        <h2 className="text-2xl font-bold mb-2 text-[color:var(--shiatsu-primary)]">
           {patient.name} {patient.surname}
         </h2>
 
-        <table className="min-w-[300px] w-full border border-[color:var(--shiatsu-gray)] rounded bg-[color:var(--shiatsu-white)]">
+        <table className="min-w-[300px] w-full border border-[color:var(--shiatsu-secondary-bg)] rounded bg-[color:var(--shiatsu-text)]">
           <thead>
-            <tr className="bg-[color:var(--shiatsu-brown)]">
-              <th className="px-2 py-2 border text-[color:var(--shiatsu-white)] w-1 whitespace-nowrap">
+            <tr className="bg-[color:var(--shiatsu-primary-bg)]">
+              <th className="px-2 py-2 border text-[color:var(--shiatsu-text)] w-1 whitespace-nowrap">
                 Date
               </th>
-              <th className="px-4 py-2 border text-[color:var(--shiatsu-white)]">
+              <th className="px-4 py-2 border text-[color:var(--shiatsu-text)]">
                 Notes
               </th>
             </tr>
@@ -37,12 +37,12 @@ export default function PatientDetail() {
           <tbody>
             {patient.treatments.map((treatment, idx) => (
               <tr key={idx}>
-                <td className="px-2 py-2 border text-[color:var(--shiatsu-gray)] w-1 whitespace-nowrap">
+                <td className="px-2 py-2 border text-[color:var(--shiatsu-secondary-bg)] w-1 whitespace-nowrap">
                   {treatment.date
                     ? new Date(treatment.date).toLocaleDateString()
                     : "-"}
                 </td>
-                <td className="px-4 py-2 border text-[color:var(--shiatsu-brown)]">
+                <td className="px-4 py-2 border text-[color:var(--shiatsu-primary-bg)]">
                   {treatment.notes}
                 </td>
               </tr>

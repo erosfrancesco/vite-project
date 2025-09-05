@@ -12,11 +12,11 @@ export default function PatientsLayout({
   return (
     <main className="min-h-[100vh]">
       <div className="p-4">
-        <header className="flex gap-2 mb-4">
-          {header}
+        <header className="flex gap-2 mb-4">{header}</header>
+        <div className="flex flex-col gap-4">
           {filters}
-        </header>
-        {main}
+          {main}
+        </div>
       </div>
     </main>
   );
