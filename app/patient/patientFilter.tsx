@@ -1,5 +1,5 @@
 import MagnifyingGlassIcon from "~/components/icons/MagnifyingGlassIcon";
-import { type OrderKey } from "./patients";
+import { type OrderKey } from "../hooks/Patients";
 
 export function SearchBar({
   filter,

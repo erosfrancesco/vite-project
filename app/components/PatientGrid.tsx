@@ -1,41 +1,8 @@
-import { type Patient } from "../patient/patients";
 import { useNavigate } from "react-router";
 import PencilIcon from "./icons/PencilIcon";
+import type { Patient } from "~/hooks/Patients";
+import { useModal } from "./Modal";
 import { PatientModal } from "~/patient/patientCreate";
-import { useState } from "react";
-
-// UPDATE COMPONENT
-export function UpdatePatient({
-  onUpdate,
-  patient,
-}: {
-  onUpdate?: (data: Partial<Patient>) => void;
-  patient?: Patient;
-}) {
-  const [modalOpen, setModalOpen] = useState(false);
-
-  return (
-    <>
-      <button
-        onClick={(e) => {
-          e.stopPropagation();
-          setModalOpen(true);
-        }}
-        className="p-2 rounded cursor-pointer hover:bg-[color:var(--shiatsu-primary-text)]"
-        title="Edit patient"
-      >
-        <PencilIcon className="text-[color:var(--shiatsu-secondary-bg)]" />
-      </button>
-
-      <PatientModal
-        open={modalOpen}
-        onClose={() => setModalOpen(false)}
-        onSubmit={onUpdate || (() => {})}
-        patient={patient}
-      />
-    </>
-  );
-}
 
 function PatientSummaryCard({
   patient,
@@ -44,16 +11,12 @@ function PatientSummaryCard({
   patient: Patient;
   onUpdate: (data: Partial<Patient>) => void;
 }) {
+  const { showModal, closeModal } = useModal();
   const navigate = useNavigate();
 
   function goToPatientDetails(e: React.MouseEvent<HTMLDivElement>) {
     e.stopPropagation();
     navigate(`/patients/${patient.id}`);
-  }
-
-  function editPatient(e: React.MouseEvent<HTMLButtonElement>) {
-    e.stopPropagation();
-    alert("Edit patient " + patient.id + " " + onUpdate);
   }
 
   return (
@@ -62,9 +25,19 @@ function PatientSummaryCard({
         <h2 className="text-xl font-bold">
           {patient.name} {patient.surname}
         </h2>
-
         <button
-          onClick={editPatient}
+          onClick={(e) => {
+            e.stopPropagation();
+            showModal(
+              <PatientModal
+                onClose={closeModal}
+                onSubmit={(data) => {
+                  onUpdate({ ...patient, ...data });
+                }}
+                patient={patient}
+              />
+            );
+          }}
           className="p-2 rounded cursor-pointer hover:bg-[color:var(--shiatsu-primary-text)]"
           title="Edit patient"
         >
@@ -91,7 +64,6 @@ function PatientSummaryCardStyling({ ...args }: any) {
         "hover:bg-[color:var(--shiatsu-secondary)] hover:text-[var(--shiatsu-text)]",
       ].join(" ")}
     >
-      <div />
       <PatientSummaryCard {...args} />
     </div>
   );

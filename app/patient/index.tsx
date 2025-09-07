@@ -1,4 +1,4 @@
-import { usePatients, type OrderKey, type Patient } from "./patients";
+import { usePatients, type OrderKey, type Patient } from "../hooks/Patients";
 import PatientsGrid from "~/components/PatientGrid";
 import PatientsLayout from "~/layouts/Patients";
 import { OrderBy, SearchBar } from "./patientFilter";
@@ -15,6 +15,7 @@ export default function Patients() {
     orderKey,
     patients,
     addPatient,
+    updatePatient,
   } = usePatients();
 
   // HANDLERS
@@ -26,10 +27,6 @@ export default function Patients() {
 
   const onOrderDirUpdate = () =>
     setOrderDir(orderDir === "asc" ? "desc" : "asc");
-
-  const onUpdatePatient = (updatedPatient: Patient) => {
-    // This function can be used to update a patient in the state if needed
-  };
 
   return (
     <PatientsLayout
@@ -50,7 +47,7 @@ export default function Patients() {
           />
         </div>
       }
-      main={<PatientsGrid patients={patients} onUpdate={onUpdatePatient} />}
+      main={<PatientsGrid patients={patients} onUpdate={updatePatient} />}
     />
   );
 }

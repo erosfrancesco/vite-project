@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
-import { type Patient } from "./patients";
+import { type Patient } from "../hooks/Patients";
 import CloseIcon from "~/components/icons/CloseIcon";
+import { useModal } from "~/components/Modal";
 
 export function PatientModal({
-  open,
+  // open,
   onClose,
   onSubmit,
   patient,
 }: {
-  open: boolean;
+  // open: boolean;
   onClose: () => void;
   onSubmit: (data: Partial<Patient>) => void;
   patient?: Patient;
@@ -17,6 +18,7 @@ export function PatientModal({
   const [surname, setSurname] = useState(patient?.surname || "");
   const [generalNotes, setGeneralNotes] = useState(patient?.generalNotes || "");
 
+  /*
   useEffect(() => {
     if (!open) {
       setName("");
@@ -26,6 +28,7 @@ export function PatientModal({
   }, [open]);
 
   if (!open) return null;
+  /** */
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -110,16 +113,16 @@ export function CreatePatient({
 }) {
   const [modalOpen, setModalOpen] = useState(false);
 
+  const { showModal, closeModal } = useModal();
+
   return (
-    <>
-      <button className="ml-2 p-2 rounded" onClick={() => setModalOpen(true)}>
-        Add Patient
-      </button>
-      <PatientModal
-        open={modalOpen}
-        onClose={() => setModalOpen(false)}
-        onSubmit={onCreate}
-      />
-    </>
+    <button
+      className="ml-2 p-2 rounded"
+      onClick={() =>
+        showModal(<PatientModal onClose={closeModal} onSubmit={onCreate} />)
+      }
+    >
+      Add Patient
+    </button>
   );
 }

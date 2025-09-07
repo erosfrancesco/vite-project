@@ -1,4 +1,4 @@
-import { usePatients } from "../patient/patients";
+import { usePatients } from "../hooks/Patients";
 import { useNavigate } from "react-router";
 
 interface PatientsListProps {

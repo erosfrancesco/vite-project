@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import patients from "./patients.json";
+import patients from "../patient/patients.json";
 
 export type Patient = {
   id: number;
@@ -64,7 +64,7 @@ export const usePatients = () => {
   }
 
   function addPatient(data: Partial<Patient>) {
-    const newPatientId = patients.pop()?.id ?? 0;
+    const newPatientId = patients[patients.length - 1]?.id ?? 0;
     const newPatient: Patient = {
       id: newPatientId + 1,
       name: "",
@@ -78,6 +78,14 @@ export const usePatients = () => {
     setUpdatePatients(!updatePatients);
   }
 
+  const updatePatient = (updatedPatient: Patient) => {
+    const index = patients.findIndex((p) => p.id === updatedPatient.id);
+    if (index !== -1) {
+      patients[index] = updatedPatient;
+      setUpdatePatients(!updatePatients);
+    }
+  };
+
   return {
     filter,
     setFilter,
@@ -89,5 +97,6 @@ export const usePatients = () => {
 
     getPatientTreatments,
     addPatient,
+    updatePatient,
   };
 };

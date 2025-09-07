@@ -6,9 +6,9 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
-
 import type { Route } from "./+types/root";
 import "./app.css";
+import { ModalProvider } from "./components/Modal"; // <-- import provider
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -20,9 +20,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {children}
-        <ScrollRestoration />
-        <Scripts />
+        <ModalProvider>
+          {children}
+          <ScrollRestoration />
+          <Scripts />
+        </ModalProvider>
       </body>
     </html>
   );
