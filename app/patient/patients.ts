@@ -30,7 +30,7 @@ export const usePatients = () => {
         return { ...patient, lastTreatmentDate };
       })
       .filter((patient) =>
-        `${patient.name} ${patient.surname} ${patient.generalNotes}`
+        `${patient.name} ${patient.surname} ${patient.generalNotes} ${patient.treatments.map((t) => t.notes).join(" ")}`
           .toLowerCase()
           .includes(filter.toLowerCase())
       )
@@ -57,25 +57,6 @@ export const usePatients = () => {
       });
   }, [filter, orderKey, orderDir]);
 
-  console.log(filteredPatients);
-
-  //
-  /*
-  function handleOrder(key: OrderKey) {
-    if (orderKey === key) {
-      setOrderDir(orderDir === "asc" ? "desc" : "asc");
-    } else {
-      setOrderKey(key);
-      setOrderDir("desc");
-    }
-  }
-
-  function renderOrderIconValue(key: OrderKey) {
-    return orderKey === key ? (orderDir === "desc" ? "↓" : "↑") : "";
-  }
-  /** */
-  //
-
   //
   function getPatientTreatments(patientId?: string) {
     return patients.find((p) => String(p.id) === patientId);
@@ -89,8 +70,6 @@ export const usePatients = () => {
     setOrderDir,
     orderKey,
     setOrderKey,
-    // handleOrder,
-    // renderOrderIconValue,
 
     getPatientTreatments,
   };
