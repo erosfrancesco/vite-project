@@ -3,19 +3,28 @@ type PencilIconIconProps = {
 };
 
 const PencilIcon = ({ className }: PencilIconIconProps) => (
-  <svg
-    width="18"
-    height="18"
-    viewBox="0 0 20 20"
-    fill="none"
-    className={className}
-    xmlns="http://www.w3.org/2000/svg"
+  <span
+    className={`pointer-events-none text-[color:var(--shiatsu-secondary-bg)] ${className}`}
+    style={{
+      left: 10,
+      pointerEvents: "none",
+      fontSize: "1.1em",
+    }}
   >
-    <path
-      d="M14.7 2.29a1 1 0 0 1 1.42 0l1.59 1.59a1 1 0 0 1 0 1.42l-9.17 9.17-2.83.71.71-2.83 9.17-9.17zM3 17h14v2H3v-2z"
-      fill="currentColor"
-    />
-  </svg>
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 20 20"
+      fill="none"
+      className={className}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M14.7 2.29a1 1 0 0 1 1.42 0l1.59 1.59a1 1 0 0 1 0 1.42l-9.17 9.17-2.83.71.71-2.83 9.17-9.17zM3 17h14v2H3v-2z"
+        fill="currentColor"
+      />
+    </svg>
+  </span>
 );
 
 export default PencilIcon;
