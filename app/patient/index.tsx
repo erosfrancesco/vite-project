@@ -1,60 +1,8 @@
-import MagnifyingGlassIcon from "~/components/icons/MagnifyingGlassIcon";
-import { usePatients, type OrderKey } from "./patients";
+import { usePatients, type OrderKey, type Patient } from "./patients";
 import PatientsGrid from "~/components/PatientGrid";
 import PatientsLayout from "~/layouts/Patients";
-import { useCallback } from "react";
-
-// FILTERS
-function SearchBar({
-  filter,
-  onFilterUpdate,
-}: {
-  filter: string;
-  onFilterUpdate: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}) {
-  return (
-    <div className="flex max-w-[20rem] items-center border rounded">
-      <MagnifyingGlassIcon className="ml-2" />
-      <input
-        type="text"
-        placeholder="Search by name, surname or notes"
-        value={filter}
-        onChange={onFilterUpdate}
-        className="w-full border-0 ring-0 outline-0"
-      />
-    </div>
-  );
-}
-
-function OrderBy({
-  orderKey,
-  orderDir,
-  onOrderKeyUpdate,
-  onOrderDirUpdate,
-}: {
-  orderKey: OrderKey;
-  orderDir: string;
-  onOrderKeyUpdate: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-  onOrderDirUpdate: () => void;
-}) {
-  return (
-    <div className="flex items-center gap-2">
-      <p>Order by:</p>
-      <select onChange={onOrderKeyUpdate} value={orderKey}>
-        <option value="lastTreatmentDate">Last Treatment Date</option>
-        <option value="name">Name</option>
-        <option value="surname">Surname</option>
-        <option value="generalNotes">General Notes</option>
-      </select>
-      <p
-        onClick={onOrderDirUpdate}
-        className="h-full cursor-pointer text-[1.1em]"
-      >
-        {orderDir === "asc" ? "🔼" : "🔽"}
-      </p>
-    </div>
-  );
-}
+import { OrderBy, SearchBar } from "./patientFilter";
+import { CreatePatient } from "./patientCreate";
 
 // MAIN COMPONENT
 export default function Patients() {
@@ -66,29 +14,29 @@ export default function Patients() {
     setOrderKey,
     orderKey,
     patients,
+    addPatient,
   } = usePatients();
 
   // HANDLERS
-  const onFilterUpdate = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setFilter(e.target.value);
-    },
-    [setFilter]
-  );
+  const onFilterUpdate = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setFilter(e.target.value);
 
   const onOrderKeyUpdate = (e: React.ChangeEvent<HTMLSelectElement>) =>
     setOrderKey(e.target.value as OrderKey);
 
   const onOrderDirUpdate = () =>
     setOrderDir(orderDir === "asc" ? "desc" : "asc");
-  //
+
+  const onUpdatePatient = (updatedPatient: Patient) => {
+    // This function can be used to update a patient in the state if needed
+  };
 
   return (
     <PatientsLayout
       header={
         <div className="flex justify-between items-center flex-grow">
           <h1 className="text-2xl font-bold">Your patients</h1>
-          <button className="ml-2 p-2 rounded">Add Patient</button>
+          <CreatePatient onCreate={addPatient} />
         </div>
       }
       filters={
@@ -102,7 +50,7 @@ export default function Patients() {
           />
         </div>
       }
-      main={<PatientsGrid patients={patients} />}
+      main={<PatientsGrid patients={patients} onUpdate={onUpdatePatient} />}
     />
   );
 }

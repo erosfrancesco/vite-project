@@ -1,19 +1,59 @@
-import { usePatients, type Patient } from "../patient/patients";
+import { type Patient } from "../patient/patients";
 import { useNavigate } from "react-router";
 import PencilIcon from "./icons/PencilIcon";
+import { PatientModal } from "~/patient/patientCreate";
+import { useState } from "react";
 
-function PatientSummaryCard({ patient }: { patient: Patient }) {
+// UPDATE COMPONENT
+export function UpdatePatient({
+  onUpdate,
+  patient,
+}: {
+  onUpdate?: (data: Partial<Patient>) => void;
+  patient?: Patient;
+}) {
+  const [modalOpen, setModalOpen] = useState(false);
+
+  return (
+    <>
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          setModalOpen(true);
+        }}
+        className="p-2 rounded cursor-pointer hover:bg-[color:var(--shiatsu-primary-text)]"
+        title="Edit patient"
+      >
+        <PencilIcon className="text-[color:var(--shiatsu-secondary-bg)]" />
+      </button>
+
+      <PatientModal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        onSubmit={onUpdate || (() => {})}
+        patient={patient}
+      />
+    </>
+  );
+}
+
+function PatientSummaryCard({
+  patient,
+  onUpdate,
+}: {
+  patient: Patient;
+  onUpdate: (data: Partial<Patient>) => void;
+}) {
   const navigate = useNavigate();
 
   function goToPatientDetails(e: React.MouseEvent<HTMLDivElement>) {
     e.stopPropagation();
-    console.log("going to patient", patient.id);
     navigate(`/patients/${patient.id}`);
   }
 
   function editPatient(e: React.MouseEvent<HTMLButtonElement>) {
     e.stopPropagation();
-    alert("Edit patient " + patient.id);
+    alert("Edit patient " + patient.id + " " + onUpdate);
   }
 
   return (
@@ -22,6 +62,7 @@ function PatientSummaryCard({ patient }: { patient: Patient }) {
         <h2 className="text-xl font-bold">
           {patient.name} {patient.surname}
         </h2>
+
         <button
           onClick={editPatient}
           className="p-2 rounded cursor-pointer hover:bg-[color:var(--shiatsu-primary-text)]"
@@ -58,9 +99,13 @@ function PatientSummaryCardStyling({ ...args }: any) {
 
 interface PatientsListProps {
   patients?: Patient[];
+  onUpdate?: (patient: Patient) => void;
 }
 
-export default function PatientsGrid({ patients }: PatientsListProps) {
+export default function PatientsGrid({
+  patients,
+  onUpdate,
+}: PatientsListProps) {
   if (!patients || patients.length === 0) {
     return <p>No patients found.</p>;
   }
@@ -68,7 +113,11 @@ export default function PatientsGrid({ patients }: PatientsListProps) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {patients.map((patient) => (
-        <PatientSummaryCardStyling key={patient.id} patient={patient} />
+        <PatientSummaryCardStyling
+          key={patient.id}
+          patient={patient}
+          onUpdate={onUpdate}
+        />
       ))}
     </div>
   );

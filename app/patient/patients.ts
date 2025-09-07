@@ -21,9 +21,10 @@ export const usePatients = () => {
   const [filter, setFilter] = useState("");
   const [orderKey, setOrderKey] = useState<OrderKey>("lastTreatmentDate");
   const [orderDir, setOrderDir] = useState<OrderDir>("desc");
+  const [updatePatients, setUpdatePatients] = useState(false); // Dummy state to force re-render
 
   const filteredPatients = useMemo(() => {
-    return [...patients]
+    return patients
       .map((patient) => {
         const lastTreatment = patient.treatments[patient.treatments.length - 1];
         const lastTreatmentDate = lastTreatment?.date;
@@ -55,11 +56,26 @@ export const usePatients = () => {
         }
         return 0;
       });
-  }, [filter, orderKey, orderDir]);
+  }, [filter, orderKey, orderDir, updatePatients]);
 
   //
   function getPatientTreatments(patientId?: string) {
     return patients.find((p) => String(p.id) === patientId);
+  }
+
+  function addPatient(data: Partial<Patient>) {
+    const newPatientId = patients.pop()?.id ?? 0;
+    const newPatient: Patient = {
+      id: newPatientId + 1,
+      name: "",
+      surname: "",
+      generalNotes: "",
+      treatments: [],
+      lastTreatmentDate: 0,
+      ...data,
+    };
+    patients.push(newPatient);
+    setUpdatePatients(!updatePatients);
   }
 
   return {
@@ -72,5 +88,6 @@ export const usePatients = () => {
     setOrderKey,
 
     getPatientTreatments,
+    addPatient,
   };
 };

@@ -31,6 +31,7 @@
   --shiatsu-secondary: #5dade2; /* River blue */
   --shiatsu-secondary-bg: #a3c9e2; /* Light river blue */
   --shiatsu-text: #23312d; /* River stone */
+  --shiatsu-accent: brown; /* Red */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -42,5 +43,6 @@
     --shiatsu-secondary: #2980b9; /* Deeper river blue */
     --shiatsu-secondary-bg: #34495e; /* Night river */
     --shiatsu-text: #eaf6ef; /* Misty river foam */
+    --shiatsu-accent: crimson; /* Red */
   }
 }

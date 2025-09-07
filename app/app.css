@@ -29,6 +29,10 @@ button:hover {
   background: var(--shiatsu-primary-selected);
   color: var(--shiatsu-primary-text);
 }
+.button_accent {
+  background: var(--shiatsu-accent) !important;
+  color: var(--shiatsu-text) !important;
+}
 
 /* Table customization */
 table {
