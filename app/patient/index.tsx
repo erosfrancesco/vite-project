@@ -1,8 +1,8 @@
-import { usePatients, type OrderKey, type Patient } from "../hooks/Patients";
+import { usePatients, type OrderKey } from "../hooks/Patients";
 import PatientsGrid from "~/components/PatientGrid";
 import PatientsLayout from "~/layouts/Patients";
-import { OrderBy, SearchBar } from "./patientFilter";
-import { CreatePatient } from "./patientCreate";
+import { OrderBy, SearchBar } from "~/components/PatientFilter";
+import { CreatePatient } from "~/components/PatientCreate";
 
 // MAIN COMPONENT
 export default function Patients() {

@@ -3,7 +3,7 @@ import PencilIcon from "./icons/PencilIcon";
 import DeleteIcon from "./icons/DeleteIcon";
 import type { Patient } from "~/hooks/Patients";
 import { useModal } from "./Modal";
-import { PatientModal } from "~/patient/patientCreate";
+import { PatientModal } from "~/components/PatientCreate";
 
 interface PatientSummaryCardInterface {
   patient: Patient;

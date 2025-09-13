@@ -12,10 +12,9 @@ export default function TreatmentsLayout({
   return (
     <main className="min-h-[100vh]">
       <div className="p-4">
-        <header className="flex gap-2 mb-4">
-          {header}
-          {filters}
-        </header>
+        <header className="flex gap-2 mb-4">{header}</header>
+
+        {filters}
         {main}
       </div>
     </main>
