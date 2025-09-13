@@ -24,14 +24,25 @@ button {
   border-radius: 0.375rem;
   font-weight: 500;
   transition: background 0.2s;
-}
-button:hover {
-  background: var(--shiatsu-primary-selected);
-  color: var(--shiatsu-primary-text);
-}
-.button_accent {
-  background: var(--shiatsu-accent) !important;
-  color: var(--shiatsu-text) !important;
+  &:hover {
+    background: color-mix(
+      in hsl,
+      hsl(0, 0%, 100%),
+      var(--shiatsu-primary) 90%
+    );
+  }
+
+  &[type="reset"] {
+    background: var(--shiatsu-accent);
+
+    &:hover {
+      background: color-mix(
+        in hsl,
+        hsl(0, 0%, 100%),
+        var(--shiatsu-accent) 90%
+      );
+    }
+  }
 }
 
 /* Table customization */

@@ -7,8 +7,7 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-// TODO:  - Patients Screen
-//        - Treatment Screen
+// TODO: - Treatment Screen
 export default function Home() {
   return <div />;
 }

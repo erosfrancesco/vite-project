@@ -16,6 +16,7 @@ export default function Patients() {
     patients,
     addPatient,
     updatePatient,
+    deletePatient,
   } = usePatients();
 
   // HANDLERS
@@ -47,7 +48,7 @@ export default function Patients() {
           />
         </div>
       }
-      main={<PatientsGrid patients={patients} onUpdate={updatePatient} />}
+      main={<PatientsGrid patients={patients} onUpdate={updatePatient} onDelete={deletePatient} />}
     />
   );
 }

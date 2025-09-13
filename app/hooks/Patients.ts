@@ -78,10 +78,18 @@ export const usePatients = () => {
     setUpdatePatients(!updatePatients);
   }
 
-  const updatePatient = (updatedPatient: Patient) => {
+  const updatePatient = (updatedPatient: Partial<Patient>) => {
     const index = patients.findIndex((p) => p.id === updatedPatient.id);
     if (index !== -1) {
-      patients[index] = updatedPatient;
+      patients[index] = { ...patients[index], ...updatedPatient };
+      setUpdatePatients(!updatePatients);
+    }
+  };
+
+  const deletePatient = (id: Patient["id"]) => {
+    const index = patients.findIndex((p) => p.id === id);
+    if (index !== -1) {
+      patients.splice(index, 1);
       setUpdatePatients(!updatePatients);
     }
   };
@@ -98,5 +106,6 @@ export const usePatients = () => {
     getPatientTreatments,
     addPatient,
     updatePatient,
+    deletePatient,
   };
 };

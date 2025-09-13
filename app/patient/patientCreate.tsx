@@ -1,15 +1,13 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { type Patient } from "../hooks/Patients";
 import CloseIcon from "~/components/icons/CloseIcon";
 import { useModal } from "~/components/Modal";
 
 export function PatientModal({
-  // open,
   onClose,
   onSubmit,
   patient,
 }: {
-  // open: boolean;
   onClose: () => void;
   onSubmit: (data: Partial<Patient>) => void;
   patient?: Patient;
@@ -17,18 +15,6 @@ export function PatientModal({
   const [name, setName] = useState(patient?.name || "");
   const [surname, setSurname] = useState(patient?.surname || "");
   const [generalNotes, setGeneralNotes] = useState(patient?.generalNotes || "");
-
-  /*
-  useEffect(() => {
-    if (!open) {
-      setName("");
-      setSurname("");
-      setGeneralNotes("");
-    }
-  }, [open]);
-
-  if (!open) return null;
-  /** */
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -62,8 +48,8 @@ export function PatientModal({
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl">Create Patient</h2>
           <button
-            type="button"
-            className="button_accent w-6 h-6 rounded-full flex items-center justify-center"
+            type="reset"
+            className="w-6 h-6 rounded-full flex items-center justify-center"
             onClick={onClose}
           >
             <CloseIcon />
@@ -111,13 +97,11 @@ export function CreatePatient({
 }: {
   onCreate: (data: Partial<Patient>) => void;
 }) {
-  const [modalOpen, setModalOpen] = useState(false);
-
   const { showModal, closeModal } = useModal();
 
   return (
     <button
-      className="ml-2 p-2 rounded"
+      className="ml-2 p-2 rounded text-[color:var(--shiatsu-primary-text)]"
       onClick={() =>
         showModal(<PatientModal onClose={closeModal} onSubmit={onCreate} />)
       }
