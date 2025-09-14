@@ -14,11 +14,12 @@ export default function TreatmentNoteDetail({
 }) {
   const [editedNotes, setEditedNotes] = useState(note);
   const { date, notes } = editedNotes;
+  const dateLabel = date ? new Date(date).toLocaleDateString() : "-";
 
   return (
     <>
       <td className="w-1 whitespace-nowrap">
-        {date ? new Date(date).toLocaleDateString() : "-"}
+        <DateLabel date={date} />
       </td>
       <td>
         <input
@@ -33,7 +34,7 @@ export default function TreatmentNoteDetail({
               e.currentTarget.blur();
             }
 
-            onUpdate(note);
+            onUpdate(editedNotes);
           }}
           onChange={(e) => {
             const updatedNotes = e.currentTarget.value;
@@ -47,4 +48,9 @@ export default function TreatmentNoteDetail({
       </td>
     </>
   );
+}
+
+function DateLabel({ date }: { date: number | undefined }) {
+  const dateLabel = date ? new Date(date).toLocaleDateString() : "-";
+  return <>{dateLabel}</>;
 }
