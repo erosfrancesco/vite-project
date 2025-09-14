@@ -1,18 +1,18 @@
 import { useState } from "react";
-import { usePatients, type Patient } from "../hooks/Patients";
+import { type Patient } from "../hooks/Patients";
 import PlusIcon from "./icons/PlusIcon";
-
-type Treatment = Patient["treatments"][number];
+import TreatmentNoteDetail, { type TreatmentNote } from "./TreatmentNote";
+import CloseIcon from "./icons/CloseIcon";
 
 export default function TreatmentTable({
   treatments,
 }: {
   treatments: Patient["treatments"];
-  onCreate: (treatment: Treatment) => void;
-  onUpdate: (treatment: Partial<Treatment>) => void;
+  onCreate: (treatment: TreatmentNote) => void;
+  onUpdate: (treatment: Partial<TreatmentNote>) => void;
   onDelete: (treatmentId: number) => void;
 }) {
-  const [newTreatment, setNewTreatment] = useState<Treatment | null>(null);
+  const [newNote, setNewNote] = useState<TreatmentNote | null>(null);
   const [selectedRow, setSelectedRow] = useState<number | null>(null);
 
   const toggleSelectedRow = (index: number) => {
@@ -23,88 +23,84 @@ export default function TreatmentTable({
     }
   };
 
+  const toggleNewNote = () => {
+    setNewNote({
+      date: new Date().getTime(),
+      notes: "",
+    });
+
+    setSelectedRow(0);
+  };
+
+  const onCreate = (note: TreatmentNote) => {
+    console.log("Creating note:", note);
+  };
+
+  const onUpdate = (note: TreatmentNote) => {
+    console.log("Updating note:", note);
+  };
+
+  const onDelete = (index: number) => {
+    console.log("Deleting note at index:", index);
+  };
+
   return (
     <>
       <button
-        disabled={!!newTreatment}
+        disabled={!!newNote}
         className="flex items-center px-2"
-        onClick={() => {
-          setNewTreatment({
-            date: new Date().getTime(),
-            notes: "",
-          });
-        }}
+        onClick={toggleNewNote}
       >
-        New note <PlusIcon />
+        Add note <PlusIcon />
       </button>
-      <table>
-        <thead>
-          <tr>
-            <th className="w-1 whitespace-nowrap">Date</th>
-            <th>Notes</th>
-          </tr>
-        </thead>
-        <tbody>
-          {newTreatment && (
-            <tr className="tr-selected">
-              <TreatmentDetail treatment={newTreatment} isSelected={true} />
+      {treatments.length ? (
+        <table>
+          <thead>
+            <tr>
+              <th className="w-1 whitespace-nowrap">Date</th>
+              <th>Notes</th>
+              <th className="w-1 whitespace-nowrap"></th>
             </tr>
-          )}
-          {treatments.map((treatment, idx) => (
-            <tr
-              key={idx}
-              className={selectedRow === idx ? "tr-selected" : ""}
-              onClick={() => toggleSelectedRow(idx)}
-            >
-              <TreatmentDetail
+          </thead>
+          <tbody>
+            {newNote && (
+              <tr className="tr-selected">
+                <TreatmentNoteDetail
+                  note={newNote}
+                  isSelected={selectedRow === 0}
+                  onUpdate={onCreate}
+                />
+                <td></td>
+              </tr>
+            )}
+            {treatments.map((note, idx) => (
+              <tr
                 key={idx}
-                treatment={treatment}
-                isSelected={selectedRow === idx}
-              />
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </>
-  );
-}
-
-function TreatmentDetail({
-  treatment,
-  isSelected,
-}: {
-  treatment: Treatment;
-  isSelected: boolean;
-}) {
-  return (
-    <>
-      <td className="w-1 whitespace-nowrap">
-        {treatment.date ? new Date(treatment.date).toLocaleDateString() : "-"}
-      </td>
-      <td>
-        <input
-          className={isSelected ? "cursor-text" : "cursor-pointer"}
-          onClick={(e) => {
-            if (isSelected) {
-              e.stopPropagation();
-            }
-          }}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              e.currentTarget.blur();
-            }
-
-            // save
-          }}
-          onChange={(e) => {
-            const updatedNotes = e.currentTarget.value;
-            console.log("Updated notes:", updatedNotes);
-          }}
-          type="textarea"
-          value={treatment.notes}
-          readOnly={!isSelected}
-        />
-      </td>
+                className={selectedRow === idx ? "tr-selected" : ""}
+                onClick={() => toggleSelectedRow(idx)}
+              >
+                <TreatmentNoteDetail
+                  key={idx}
+                  note={note}
+                  onUpdate={onUpdate}
+                  isSelected={selectedRow === idx}
+                />
+                <td>
+                  <button
+                    type="reset"
+                    className="flex items-center"
+                    onClick={() => onDelete(idx)}
+                  >
+                    <CloseIcon />
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <p className="p-4">No notes yet.</p>
+      )}
     </>
   );
 }

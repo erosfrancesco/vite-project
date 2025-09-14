@@ -1,4 +1,11 @@
-[
+[{
+    "id": 0,
+    "name": "Newton",
+    "surname": "Patent",
+    "generalNotes": "Doesn't have any notes.",
+    "treatments": [
+    ]
+  },
   {
     "id": 1,
     "name": "John",
