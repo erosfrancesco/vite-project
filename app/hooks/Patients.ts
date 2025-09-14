@@ -1,16 +1,8 @@
 import { useMemo, useState } from "react";
 import patients from "../patient/patients.json";
+import { type Patient as DBPatient } from "./Database";
 
-export type Patient = {
-  id: number;
-  name: string;
-  surname: string;
-  generalNotes: string;
-  treatments: {
-    notes: string;
-    date: number;
-  }[];
-
+export type Patient = DBPatient & {
   lastTreatmentDate: number;
 };
 
@@ -59,8 +51,8 @@ export const usePatients = () => {
   }, [filter, orderKey, orderDir, updatePatients]);
 
   //
-  function getPatientTreatments(patientId?: string) {
-    return patients.find((p) => String(p.id) === patientId);
+  function getPatientTreatments(patientId?: Patient["id"]) {
+    return patients.find((p) => p.id === patientId);
   }
 
   function addPatient(data: Partial<Patient>) {

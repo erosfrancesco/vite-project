@@ -6,7 +6,7 @@ import TreatmentTable from "~/components/TreatmentTable";
 export default function PatientDetail() {
   const { patientId } = useParams();
   const { getPatientTreatments } = usePatients();
-  const patient = getPatientTreatments(patientId);
+  const patient = getPatientTreatments(Number(patientId));
 
   if (!patient) {
     return (
