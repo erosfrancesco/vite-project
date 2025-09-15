@@ -3,6 +3,7 @@ import PatientsGrid from "~/components/PatientGrid";
 import PatientsLayout from "~/layouts/Patients";
 import { OrderBy, SearchBar } from "~/components/PatientFilter";
 import { CreatePatient } from "~/components/PatientCreate";
+import { useEffect } from "react";
 
 // MAIN COMPONENT
 export default function Patients() {
@@ -17,7 +18,13 @@ export default function Patients() {
     addPatient,
     updatePatient,
     deletePatient,
+    loadPatients,
+    loading
   } = usePatients();
+
+  useEffect(() => {
+    loadPatients();
+  }, []);
 
   // HANDLERS
   const onFilterUpdate = (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -48,7 +55,13 @@ export default function Patients() {
           />
         </div>
       }
-      main={<PatientsGrid patients={patients} onUpdate={updatePatient} onDelete={deletePatient} />}
+      main={
+        <PatientsGrid
+          patients={patients}
+          onUpdate={updatePatient}
+          onDelete={deletePatient}
+        />
+      }
     />
   );
 }

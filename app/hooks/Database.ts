@@ -1,4 +1,5 @@
-import Loki, { Collection } from "@lokidb/loki";
+import Loki from "lokijs";
+import hydrationData from "../patient/patients.json";
 
 export type TreatmentNote = {
   notes: string;
@@ -14,13 +15,17 @@ export type Patient = {
 };
 
 const db = new Loki("patients.db");
-const patients: Collection<Patient> = db.addCollection("patients", {
+const patients: Loki.Collection<Patient> = db.addCollection("patients", {
   unique: ["id"],
+});
+
+hydrateDatabase().catch((err) => {
+  console.error("Error hydrating database:", err);
 });
 
 // CREATE
 export async function createPatient(data: Patient): Promise<Patient> {
-  return patients.insert(data);
+  return patients.insert(data)!;
 }
 
 // READ (all or by query)
@@ -50,4 +55,14 @@ export async function deletePatient(id: Patient["id"]): Promise<boolean> {
     return true;
   }
   return false;
+}
+
+// HYDRATE DATABASE WITH INITIAL DATA
+export async function hydrateDatabase() {
+  if (patients.count() === 0) {
+    const promises = hydrationData.map((patient) => {
+      return patients.insert(patient);
+    });
+    await Promise.all(promises);
+  }
 }
