@@ -1,0 +1,22 @@
+/* Shiatsu Palette - Bamboo & River Inspired */
+:root {
+  --shiatsu-primary: #355e3b; /* Deep bamboo */
+  --shiatsu-primary-bg: #b7cbbf; /* Light bamboo leaf */
+  --shiatsu-primary-text: #eaf6ef; /* Misty river foam */
+  --shiatsu-secondary: #5dade2; /* River blue */
+  --shiatsu-secondary-bg: #a3c9e2; /* Light river blue */
+  --shiatsu-text: #23312d; /* River stone */
+  --shiatsu-accent: brown; /* Red */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --shiatsu-primary: #4b7f52; /* Bamboo green */
+    --shiatsu-primary-bg: #23312d; /* River stone */
+    --shiatsu-primary-text: #1a2421; /* Deep river shadow */
+    --shiatsu-secondary: #2980b9; /* Deeper river blue */
+    --shiatsu-secondary-bg: #34495e; /* Night river */
+    --shiatsu-text: #eaf6ef; /* Misty river foam */
+    --shiatsu-accent: crimson; /* Red */
+  }
+}
