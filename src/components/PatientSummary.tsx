@@ -28,7 +28,6 @@ function PatientSummaryCard({
   function goToPatientDetails(e: React.MouseEvent<HTMLDivElement>) {
     e.stopPropagation();
 
-    console.log("Go to patient details for", patient._id);
     navigate(`/patients/${patient._id}`);
   }
 

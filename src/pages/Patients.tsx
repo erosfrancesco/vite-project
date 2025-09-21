@@ -1,7 +1,7 @@
 import React from "react";
 import { PatientContext } from "../context/Database";
-import { CreatePatient } from "./PatientActions";
-import PatientSummaryCardStyling from "./PatientSummary";
+import { CreatePatient } from "../components/PatientActions";
+import PatientSummaryCardStyling from "../components/PatientSummary";
 import LayoutGrid from "../layouts/Grid";
 
 export const ListPatients = () => {

@@ -1,9 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PlusIcon from "./icons/PlusIcon";
 import TreatmentNoteDetail, { type TreatmentNote } from "./TreatmentNoteDetail";
 import CloseIcon from "./icons/CloseIcon";
 import { IPatient } from "../interfaces/Database";
-import { on } from "pouchdb-browser";
 
 export default function TreatmentNotes({
   treatments,
@@ -16,8 +15,13 @@ export default function TreatmentNotes({
   onUpdate: (treatments: IPatient["treatments"]) => void;
   onDelete: (treatments: IPatient["treatments"]) => void;
 }) {
-  const [newNote, setNewNote] = useState<TreatmentNote | null>(null);
+  const [notes, setNotes] = useState<IPatient["treatments"]>([]);
   const [selectedRow, setSelectedRow] = useState<number | null>(null);
+
+  // TODO: - Change when treatments change outside. Already done. Check PatientDetail.
+  useEffect(() => {
+    setNotes(treatments);
+  }, [treatments]);
 
   const toggleSelectedRow = (index: number) => {
     if (selectedRow === index) {
@@ -27,30 +31,21 @@ export default function TreatmentNotes({
     }
   };
 
-  const toggleNewNote = () => {
-    setNewNote({
+  const onCreateNote = () => {
+    const newNote = {
       date: new Date().getTime(),
       notes: "",
-    });
-
-    setSelectedRow(0);
-  };
-
-  const onCreateNote = (note: TreatmentNote) => {
-    console.log("Creating note:", note);
-    onCreate([note, ...treatments]);
-    setNewNote(null);
-    setSelectedRow(null);
+    };
+    onCreate([newNote, ...treatments]);
+    setNotes([newNote, ...treatments]);
   };
 
   const onUpdateNote = (note: TreatmentNote, index: number) => {
-    console.log("Updating note:", note);
     treatments[index] = note;
     onUpdate(treatments);
   };
 
   const onDeleteNote = (index: number) => {
-    console.log("Deleting note at index:", index);
     treatments.splice(index, 1);
     onDelete(treatments);
     setSelectedRow(null);
@@ -59,11 +54,11 @@ export default function TreatmentNotes({
   return (
     <>
       <button
-        disabled={!!newNote}
+        disabled={false}
         className="flex items-center px-2"
-        onClick={toggleNewNote}
+        onClick={onCreateNote}
       >
-        Add note <PlusIcon />
+        New note <PlusIcon />
       </button>
 
       <table>
@@ -75,16 +70,7 @@ export default function TreatmentNotes({
           </tr>
         </thead>
         <tbody>
-          {newNote && (
-            <tr className="tr-selected">
-              <TreatmentNoteDetail
-                note={newNote}
-                isSelected={selectedRow === 0}
-                onUpdate={onCreateNote}
-              />
-            </tr>
-          )}
-          {treatments.map((note, idx) => (
+          {notes.map((note, idx) => (
             <tr
               key={idx}
               className={selectedRow === idx ? "tr-selected" : ""}

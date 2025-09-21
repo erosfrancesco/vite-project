@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Database from "./context/Database";
 import ModalProvider from "./context/Modal";
-import { ListPatients } from "./components/Patients";
-import PatientDetail from "./components/PatientDetail";
+import { ListPatients } from "./pages/Patients";
+import PatientDetail from "./pages/PatientDetail";
 
 function App() {
   return (
