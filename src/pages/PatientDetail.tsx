@@ -45,18 +45,17 @@ export default function PatientDetail() {
   return (
     <ListLayout
       header={
-        <div className="w-full flex justify-between">
-          <h2 className="text-2xl font-bold mb-2 text-[color:var(--shiatsu-primary)]">
-            {patient.name} {patient.surname}{" "}
+        <>
+          <h2 className="text-2xl font-bold text-[color:var(--shiatsu-primary)]">
+            {patient.name} {patient.surname}
           </h2>
           <button
-            disabled={false}
-            className="flex items-center px-2 "
+            className="flex items-center justify-center p-1"
             onClick={onCreateNote}
           >
-            New note <PlusIcon />
+            <PlusIcon /> <span className="pr-1">new</span>
           </button>
-        </div>
+        </>
       }
     >
       <TreatmentNotes

@@ -17,6 +17,11 @@ body {
   }
 }
 
+/* Header customization */
+header {
+  @apply flex justify-between items-center p-2 border-b mb-2 shadow-sm
+}
+
 /* Button customization */
 button {
   background: var(--shiatsu-primary);

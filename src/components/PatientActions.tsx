@@ -116,13 +116,13 @@ export function CreatePatient({ onCreate }: IPatientActionsCreateProps) {
 
   return (
     <button
-      className="ml-2 p-2 rounded text-[color:var(--shiatsu-primary-text)] flex items-center justify-center"
+      className="p-1 text-[color:var(--shiatsu-primary-text)] flex items-center justify-center"
       onClick={() =>
         showModal(<PatientModal onClose={closeModal} onSubmit={onCreate} />)
       }
     >
-      New Patient
       <PlusIcon />
+      <span className="pr-1">new</span>
     </button>
   );
 }

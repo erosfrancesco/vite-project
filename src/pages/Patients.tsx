@@ -9,10 +9,10 @@ export const ListPatients = () => {
 
   return (
     <div className="transition-[background-color] duration-1000 flex flex-col h-screen">
-      <div className="flex justify-between items-center p-2 border-b mb-2 shadow-sm">
+      <header>
         <h1 className="text-2xl font-bold">Your patients</h1>
         <CreatePatient onCreate={upsert} />
-      </div>
+      </header>
 
       {items.length > 0 ? (
         <LayoutGrid>
