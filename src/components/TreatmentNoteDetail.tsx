@@ -6,13 +6,11 @@ export type TreatmentNote = IPatient["treatments"][number];
 export default function TreatmentNoteDetail({
   note,
   isSelected,
-  onUpdate,
-  refresh = false,
+  onUpdate
 }: {
   note: TreatmentNote;
   isSelected: boolean;
   onUpdate: (note: TreatmentNote) => void;
-  refresh: Boolean;
 }) {
   const [editedNotes, setEditedNotes] = useState("");
   const [dateLabel, setDateLabel] = useState("-");
@@ -26,8 +24,8 @@ export default function TreatmentNoteDetail({
   }, [note]);
 
   return (
-    <div className="w-full">
-      <span className="whitespace-nowrap">{dateLabel}</span>
+    <div className="w-full flex justify-between items-center">
+      <span className="whitespace-nowrap w-30">{dateLabel}</span>
       <input
         className={"flex-1 " + (isSelected ? "cursor-text" : "cursor-pointer")}
         onClick={(e) => {

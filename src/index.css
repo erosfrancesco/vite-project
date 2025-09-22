@@ -19,7 +19,7 @@ body {
 
 /* Header customization */
 header {
-  @apply flex justify-between items-center p-2 border-b mb-2 shadow-sm
+  @apply flex justify-between items-center p-2 border-b mb-2 shadow-sm;
 }
 
 /* Button customization */
@@ -116,27 +116,32 @@ tr {
 
   .tr-selected {
     cursor: default;
+    /*
     background: var(--shiatsu-accent);
     color: var(--shiatsu-text);
+    /**/
   }
-}
-
-/* Main area customization */
-main {
-  background: var(--shiatsu-primary-text);
 }
 
 /* Card customization */
 .card {
-  background: var(--shiatsu-primary-text);
-  border-radius: 0.5rem;
+  background-color: var(--shiatsu-secondary-bg);
+  border-radius: 0.25rem;
   padding: 1rem;
   margin: 1rem;
-  box-shadow: 0 2px 4px var(--shiatsu-secondary-bg);
+  box-shadow: 0 2px 2px var(--shiatsu-secondary-bg);
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--shiatsu-primary-bg);
+    color: var(--shiatsu-primary-text);
+    box-shadow: 0 2px 2px var(--shiatsu-primary-bg);
+  }
 }
 
 /* Input customization */
-input {
+input,
+textarea {
   background: transparent;
   border-radius: 0.375rem;
   padding: 0.5rem 0.75rem;
@@ -197,4 +202,9 @@ select::after {
     background: var(--shiatsu-primary-bg);
     color: var(--shiatsu-text);
   }
+}
+
+main {
+  color: var(--shiatsu-primary-text);
+  background: var(--shiatsu-main-bg);
 }

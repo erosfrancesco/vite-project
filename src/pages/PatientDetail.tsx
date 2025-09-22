@@ -25,7 +25,9 @@ export default function PatientDetail() {
     return (
       <main className="flex items-center justify-center pt-16 pb-4">
         <div className="flex-1 flex flex-col items-center gap-16 min-h-0">
-          <span className="text-red-600">Patient not found. Go back.</span>
+          <span className="text-[color:var(--shiatsu-accent)]">
+            Patient not found. Go back.
+          </span>
         </div>
       </main>
     );

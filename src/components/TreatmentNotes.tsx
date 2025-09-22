@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import PlusIcon from "./icons/PlusIcon";
 import TreatmentNoteDetail, { type TreatmentNote } from "./TreatmentNoteDetail";
 import CloseIcon from "./icons/CloseIcon";
 import { IPatient } from "../interfaces/Database";
@@ -43,7 +42,7 @@ export default function TreatmentNotes({
   };
 
   return (
-    <div className="bg-[color:var(--shiatsu-primary-bg)] px-2 rounded">
+    <div className="bg-[color:var(--shiatsu-secondary-bg)] px-2 rounded">
       {notes.map((note, idx) => (
         <div
           key={idx}
@@ -58,7 +57,6 @@ export default function TreatmentNotes({
             note={note}
             onUpdate={(note) => onUpdateNote(note, idx)}
             isSelected={selectedRow === idx}
-            refresh={refresh}
           />
           <button
             type="reset"

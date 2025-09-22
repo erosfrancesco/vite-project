@@ -22,11 +22,11 @@ export default function ModalProvider({ children }: IModalProviderProps) {
       {children}
       {open && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50"
+          className="bg-black fixed inset-0 bg-opacity-80 flex items-center justify-center z-50"
           onClick={closeModal}
         >
           <div
-            className="bg-white p-6 rounded shadow-lg min-w-[300px]"
+            className="p-6 rounded shadow-lg min-w-[300px]"
             onClick={(e) => e.stopPropagation()}
           >
             {content}

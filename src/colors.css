@@ -1,22 +1,23 @@
-/* Shiatsu Palette - Bamboo & River Inspired */
 :root {
-  --shiatsu-primary: #355e3b; /* Deep bamboo */
-  --shiatsu-primary-bg: #b7cbbf; /* Light bamboo leaf */
-  --shiatsu-primary-text: #eaf6ef; /* Misty river foam */
-  --shiatsu-secondary: #5dade2; /* River blue */
-  --shiatsu-secondary-bg: #a3c9e2; /* Light river blue */
-  --shiatsu-text: #23312d; /* River stone */
-  --shiatsu-accent: brown; /* Red */
+  --shiatsu-primary: #4e7c4e;   /* Warm olive green */
+  --shiatsu-primary-bg: #e3efd9; /* Soft light green */
+  --shiatsu-primary-text: #23180f; /* Deep black-brown for strong contrast */
+  --shiatsu-secondary: #e67e22; /* Sunset orange */
+  --shiatsu-secondary-bg: #f9d7b5; /* Light apricot */
+  --shiatsu-text: #6b3e26;      /* Earth brown */
+  --shiatsu-accent: #c0392b;    /* Warm red */
+  --shiatsu-main-bg: #fff8f0;   /* Sunlit cream for main background */
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --shiatsu-primary: #4b7f52; /* Bamboo green */
-    --shiatsu-primary-bg: #23312d; /* River stone */
-    --shiatsu-primary-text: #1a2421; /* Deep river shadow */
-    --shiatsu-secondary: #2980b9; /* Deeper river blue */
-    --shiatsu-secondary-bg: #34495e; /* Night river */
-    --shiatsu-text: #eaf6ef; /* Misty river foam */
-    --shiatsu-accent: crimson; /* Red */
+    --shiatsu-primary: #3c5c3c;   /* Deep olive green */
+    --shiatsu-primary-bg: #223322; /* Dark muted green */
+    --shiatsu-primary-text: #e3efd9; /* Soft light green */
+    --shiatsu-secondary: #d35400; /* Burnt orange */
+    --shiatsu-secondary-bg: #6b3e26; /* Earth brown */
+    --shiatsu-text: #fff8f0;      /* Sunlit cream */
+    --shiatsu-accent: #e74c3c;    /* Vibrant red */
+    --shiatsu-main-bg: #23180f;   /* Deep black-brown for main background in dark mode */
   }
 }
