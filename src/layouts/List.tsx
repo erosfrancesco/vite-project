@@ -8,7 +8,7 @@ export default function ListLayout({
   return (
     <main className="min-h-[100vh]">
       <div className="p-4">
-        <header className="flex gap-2 mb-4">{header}</header>
+        <header className="flex gap-2 mb-4 w-full">{header}</header>
         {children}
       </div>
     </main>

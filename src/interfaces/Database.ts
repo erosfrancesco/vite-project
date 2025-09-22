@@ -18,5 +18,7 @@ export interface IPatientContext {
   upsert: (doc: IPatient) => void;
   remove: (doc: IPatient) => void;
   items: IPatient[];
+  patient: IPatient | null;
   all: () => void;
+  search: (filters: IPatient["_id"]) => void;
 }

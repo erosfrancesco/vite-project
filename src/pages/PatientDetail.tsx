@@ -4,24 +4,21 @@ import React, { useEffect } from "react";
 import { PatientContext } from "../context/Database";
 import ListLayout from "../layouts/List";
 import TreatmentNotes from "../components/TreatmentNotes";
+import PlusIcon from "../components/icons/PlusIcon";
 
 export default function PatientDetail() {
   const { patientId } = useParams();
-  const { items, upsert } = React.useContext(PatientContext);
-  const [patient, setPatient] = React.useState<IPatient | undefined>(undefined);
+  const { upsert, search, patient, items } = React.useContext(PatientContext);
   const [notes, setNotes] = React.useState<ITreatmentNote[]>([]);
   const [updateFlag, setUpdateFlag] = React.useState(false);
 
-  const refreshPage = () => {
-    // TODO: - Patient finding could be optimized.
-    const patient = items.find((p) => String(p._id) === String(patientId));
-    setPatient(patient);
-    setNotes(patient?.treatments || []);
-  };
+  useEffect(() => {
+    search(patientId);
+  }, [patientId, updateFlag, items]);
 
   useEffect(() => {
-    refreshPage();
-  }, [patientId, updateFlag, items]);
+    setNotes(patient?.treatments || []);
+  }, [patient]);
 
   /** */
   if (!patient) {
@@ -35,21 +32,36 @@ export default function PatientDetail() {
   }
   /** */
 
+  const onCreateNote = () => {
+    const newNote = {
+      date: new Date().getTime(),
+      notes: "",
+    };
+
+    upsert({ ...patient, treatments: [newNote, ...patient.treatments] });
+    setUpdateFlag(!updateFlag);
+  };
+
   return (
     <ListLayout
       header={
-        <h2 className="text-2xl font-bold mb-2 text-[color:var(--shiatsu-primary)]">
-          {patient.name} {patient.surname}
-          {/** TODO: - Create here... */}
-        </h2>
+        <div className="w-full flex justify-between">
+          <h2 className="text-2xl font-bold mb-2 text-[color:var(--shiatsu-primary)]">
+            {patient.name} {patient.surname}{" "}
+          </h2>
+          <button
+            disabled={false}
+            className="flex items-center px-2 "
+            onClick={onCreateNote}
+          >
+            New note <PlusIcon />
+          </button>
+        </div>
       }
     >
       <TreatmentNotes
+        refresh={updateFlag}
         treatments={notes || []}
-        onCreate={(updatedNote) => {
-          upsert({ ...patient, treatments: updatedNote });
-          setUpdateFlag(!updateFlag);
-        }}
         onUpdate={(updatedNote) => {
           upsert({ ...patient, treatments: updatedNote });
           setUpdateFlag(!updateFlag);

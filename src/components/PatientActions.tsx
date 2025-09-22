@@ -6,6 +6,7 @@ import {
 import { IPatientActionsCreateProps } from "../interfaces/PatientActions";
 import DeleteIcon from "./icons/DeleteIcon";
 import PencilIcon from "./icons/PencilIcon";
+import PlusIcon from "./icons/PlusIcon";
 import { PatientModal } from "./PatientModal";
 
 export function PatientActions({
@@ -115,12 +116,13 @@ export function CreatePatient({ onCreate }: IPatientActionsCreateProps) {
 
   return (
     <button
-      className="ml-2 p-2 rounded text-[color:var(--shiatsu-primary-text)]"
+      className="ml-2 p-2 rounded text-[color:var(--shiatsu-primary-text)] flex items-center justify-center"
       onClick={() =>
         showModal(<PatientModal onClose={closeModal} onSubmit={onCreate} />)
       }
     >
-      Add Patient
+      New Patient
+      <PlusIcon />
     </button>
   );
 }

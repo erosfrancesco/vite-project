@@ -6,22 +6,22 @@ import { IPatient } from "../interfaces/Database";
 
 export default function TreatmentNotes({
   treatments,
-  onCreate,
+  refresh = false,
   onUpdate,
   onDelete,
 }: {
   treatments: IPatient["treatments"];
-  onCreate: (treatments: IPatient["treatments"]) => void;
+  refresh: boolean;
   onUpdate: (treatments: IPatient["treatments"]) => void;
   onDelete: (treatments: IPatient["treatments"]) => void;
 }) {
   const [notes, setNotes] = useState<IPatient["treatments"]>([]);
   const [selectedRow, setSelectedRow] = useState<number | null>(null);
 
-  // TODO: - Change when treatments change outside. Already done. Check PatientDetail.
   useEffect(() => {
+    setNotes([]);
     setNotes(treatments);
-  }, [treatments]);
+  }, [treatments, refresh]);
 
   const toggleSelectedRow = (index: number) => {
     if (selectedRow === index) {
@@ -29,15 +29,6 @@ export default function TreatmentNotes({
     } else {
       setSelectedRow(index);
     }
-  };
-
-  const onCreateNote = () => {
-    const newNote = {
-      date: new Date().getTime(),
-      notes: "",
-    };
-    onCreate([newNote, ...treatments]);
-    setNotes([newNote, ...treatments]);
   };
 
   const onUpdateNote = (note: TreatmentNote, index: number) => {
@@ -52,49 +43,32 @@ export default function TreatmentNotes({
   };
 
   return (
-    <>
-      <button
-        disabled={false}
-        className="flex items-center px-2"
-        onClick={onCreateNote}
-      >
-        New note <PlusIcon />
-      </button>
-
-      <table>
-        <thead>
-          <tr>
-            <th className="w-1 whitespace-nowrap">Date</th>
-            <th>Notes</th>
-            <th className="w-1 whitespace-nowrap"></th>
-          </tr>
-        </thead>
-        <tbody>
-          {notes.map((note, idx) => (
-            <tr
-              key={idx}
-              className={selectedRow === idx ? "tr-selected" : ""}
-              onClick={() => toggleSelectedRow(idx)}
-            >
-              <TreatmentNoteDetail
-                key={idx}
-                note={note}
-                onUpdate={(note) => onUpdateNote(note, idx)}
-                isSelected={selectedRow === idx}
-              />
-              <td>
-                <button
-                  type="reset"
-                  className="flex items-center"
-                  onClick={() => onDeleteNote(idx)}
-                >
-                  <CloseIcon />
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </>
+    <div className="bg-[color:var(--shiatsu-primary-bg)] px-2 rounded">
+      {notes.map((note, idx) => (
+        <div
+          key={idx}
+          className={
+            (selectedRow === idx ? "tr-selected " : "") +
+            "flex w-full items-center justify-between px-2 [&:not(:last-child)]:border-b"
+          }
+          onClick={() => toggleSelectedRow(idx)}
+        >
+          <TreatmentNoteDetail
+            key={idx}
+            note={note}
+            onUpdate={(note) => onUpdateNote(note, idx)}
+            isSelected={selectedRow === idx}
+            refresh={refresh}
+          />
+          <button
+            type="reset"
+            className="w-6 h-6 flex items-center justify-center"
+            onClick={() => onDeleteNote(idx)}
+          >
+            <CloseIcon />
+          </button>
+        </div>
+      ))}
+    </div>
   );
 }

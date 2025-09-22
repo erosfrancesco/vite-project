@@ -11,11 +11,14 @@ export const PatientContext = createContext<IPatientContext>({
   upsert(_doc) {},
   all() {},
   items: [],
+  patient: null,
   remove(_doc) {},
+  search(_filter) {},
 });
 
 export default function Database(props: PropsWithChildren) {
   const [items, setItems] = useState<IPatient[]>([]);
+  const [patient, setPatient] = useState<IPatient | null>(null);
 
   // UPDATE || CREATE
   function upsert(doc: IPatient) {
@@ -49,13 +52,24 @@ export default function Database(props: PropsWithChildren) {
     all();
   }, []);
 
+  function search(patientId: IPatient["_id"]) {
+    _db
+      .find({ _id: patientId })
+      .then((res) => {
+        setPatient(res[0] || null);
+      })
+      .catch(console.error);
+  }
+
   return (
     <PatientContext.Provider
       value={{
         upsert,
         remove,
         items,
+        patient,
         all,
+        search,
       }}
     >
       {props.children}
